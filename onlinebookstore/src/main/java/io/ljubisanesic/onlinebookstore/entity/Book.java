@@ -41,7 +41,7 @@ public class Book {
 	private Date createdOn;
 
 	@Column(name = "last_updated")
-	private Date updateOn;
+	private Date updatedOn;
 
 	@ManyToOne
 	@JoinColumn(name = "category_id", nullable = false)
@@ -119,12 +119,12 @@ public class Book {
 		this.createdOn = createdOn;
 	}
 
-	public Date getUpdateOn() {
-		return updateOn;
+	public Date getUpdatedOn() {
+		return updatedOn;
 	}
 
-	public void setUpdateOn(Date updateOn) {
-		this.updateOn = updateOn;
+	public void setUpdatedOn(Date updateOn) {
+		this.updatedOn = updateOn;
 	}
 
 	public BookCategory getCategory() {
@@ -139,7 +139,7 @@ public class Book {
 	public String toString() {
 		return "Book [id=" + id + ", sku=" + sku + ", name=" + name + ", description=" + description + ", unitPrice="
 				+ unitPrice + ", imageUrl=" + imageUrl + ", active=" + active + ", unitsInStock=" + unitsInStock
-				+ ", createdOn=" + createdOn + ", updateOn=" + updateOn + ", category=" + category + "]";
+				+ ", createdOn=" + createdOn + ", updatedOn=" + updatedOn + ", category=" + category + "]";
 	}
 	
 	
