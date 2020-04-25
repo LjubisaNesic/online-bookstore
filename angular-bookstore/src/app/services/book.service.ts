@@ -20,9 +20,12 @@ private categoryUrl = "http://localhost:8080/api/v1/book-category";
 
     const searchUrl = `${this.baseUrl}/search/categoryid?id=${theCategoryId}`;
 
-    return this.httpClient.get<GetResponseBooks>(searchUrl).pipe(
-      map(response => response._embedded.books)
-    );
+    return this.getBooksList(searchUrl);
+  }
+
+  private getBooksList(searchUrl: string): Observable<Book[]> {
+    return this.httpClient.get<GetResponseBooks>(searchUrl)
+    .pipe(map(response => response._embedded.books));
   }
 
   getBookCategories(): Observable<BookCategory[]>{
@@ -30,6 +33,13 @@ private categoryUrl = "http://localhost:8080/api/v1/book-category";
     return this.httpClient.get<GetResponseBookCategory>(this.categoryUrl).pipe(
       map(response => response._embedded.bookCategory)
     );
+  }
+
+  searchBooks(keyword: string): Observable<Book[]>{
+
+    const searchUrl = `${this.baseUrl}/search/searchbykeyword?name=${keyword}`;
+
+    return this.getBooksList(searchUrl);
   }
 
 }
