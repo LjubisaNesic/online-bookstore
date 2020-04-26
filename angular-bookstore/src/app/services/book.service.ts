@@ -42,6 +42,13 @@ private categoryUrl = "http://localhost:8080/api/v1/book-category";
     return this.getBooksList(searchUrl);
   }
 
+  get(bookId: number): Observable<Book>{
+    
+    const bookDetailsUrl = `${this.baseUrl}/${bookId}`;
+
+    return this.httpClient.get<Book>(bookDetailsUrl);
+  }
+
 }
 
 interface GetResponseBooks{
