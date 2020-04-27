@@ -33,3 +33,11 @@ body,html{
     padding-bottom: 100px;
     
 }
+
+a{
+    cursor: pointer;
+}
+
+.pagination{
+    float: right;
+}
