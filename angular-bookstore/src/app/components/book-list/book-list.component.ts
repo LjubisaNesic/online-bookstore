@@ -3,6 +3,8 @@ import { Book } from 'src/app/common/book';
 import { BookService } from 'src/app/services/book.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap'
+import { CartService } from 'src/app/services/cart.service';
+import { CartItem } from 'src/app/common/cart-item';
 
 @Component({
   selector: 'app-book-list',
@@ -19,13 +21,14 @@ export class BookListComponent implements OnInit {
   pageSize: number = 5;
   totalRecords: number = 0;
   previousCategory: number = 1;
-  
+
   constructor(private _bookService: BookService,
-              private _activatedRoute: ActivatedRoute,
-              _config: NgbPaginationConfig) {
-                _config.maxSize = 3;
-                _config.boundaryLinks = true;
-              }
+    private _activatedRoute: ActivatedRoute,
+    _config: NgbPaginationConfig,
+    private _cartService: CartService) {
+    _config.maxSize = 3;
+    _config.boundaryLinks = true;
+  }
 
   ngOnInit(): void {
     this._activatedRoute.paramMap.subscribe(() => {
@@ -62,32 +65,39 @@ export class BookListComponent implements OnInit {
     this.previousCategory = this.currentCategoryId;
 
     this._bookService.getBooks(this.currentCategoryId,
-                                this.currentPage-1,
-                                this.pageSize)
-                                .subscribe(this.processPaginate())
+      this.currentPage - 1,
+      this.pageSize)
+      .subscribe(this.processPaginate())
   }
 
   handleSearchBooks() {
 
-    const keyword:string = this._activatedRoute.snapshot.paramMap.get('keyword');
+    const keyword: string = this._activatedRoute.snapshot.paramMap.get('keyword');
 
     this._bookService.searchBooks(keyword,
-                                  this.currentPage - 1,
-                                  this.pageSize).subscribe(this.processPaginate())
+      this.currentPage - 1,
+      this.pageSize).subscribe(this.processPaginate())
   }
 
-  updatePageSize(pageSize:number){
+  updatePageSize(pageSize: number) {
     this.pageSize = pageSize;
     this.currentPage = 1;
     this.listBooks();
   }
 
-  processPaginate(){
+  processPaginate() {
     return data => {
       this.books = data._embedded.books;
       this.currentCategoryId = data.page.number + 1;
       this.totalRecords = data.page.totalElements;
       this.pageSize = data.page.size;
     }
+  }
+
+  addToCart(book: Book) {
+    console.log(`book name: ${book.name} and price: ${book.unitPrice}`)
+
+    const cartItem = new CartItem(book);
+    this._cartService.addToCart(cartItem);
   }
 }
