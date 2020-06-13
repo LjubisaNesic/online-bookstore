@@ -34,6 +34,6 @@ body,html{
     
 }
 
-a{
+a, .pointer{
     cursor: pointer;
 }

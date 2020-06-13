@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
+
 import { AppComponent } from './app.component';
 import { BookListComponent } from './components/book-list/book-list.component';
 import { BookService } from './services/book.service';
@@ -14,8 +15,10 @@ import { BookDetailsComponent } from './components/book-details/book-details.com
 import { JwPaginationComponent } from 'jw-angular-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
+import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 
 const routes: Routes = [
+  { path: 'cart-details', component: CartDetailsComponent },
   { path: 'books/:id', component: BookDetailsComponent },
   { path: 'books', component: BookListComponent },
   { path: 'search/:keyword', component: BookListComponent },
@@ -33,7 +36,8 @@ const routes: Routes = [
     SearchComponent,
     BookDetailsComponent,
     JwPaginationComponent,
-    CartStatusComponent
+    CartStatusComponent,
+    CartDetailsComponent
   ],
   imports: [
     BrowserModule,
